@@ -210,7 +210,7 @@ public class VistaSwing extends JFrame implements Observer {
 	//Inicia un nuevo panel que contenga la representación del tablero.
 	public void iniciaPTablero(int alto, int ancho) {
 		
-		pTablero = new JPanel(new GridLayout(alto, ancho));
+		pTablero.setLayout(new GridLayout(alto, ancho));
 	}
 	
 	//Crea las celdas del nuevo tablero.
@@ -281,10 +281,13 @@ public class VistaSwing extends JFrame implements Observer {
 	@Override
 	public void initState(TableroInmutable estadoInicial, Ficha turno) {
 		
-		pTablero.setVisible(false);
+		pTablero.removeAll();
 		iniciaPTablero(estadoInicial.getAlto(), estadoInicial.getAncho());
 		iniciaCeldas(estadoInicial.getAlto(), estadoInicial.getAncho());
 
+		pTablero.validate();
+		pTablero.repaint();
+		
 		pJuego.add(pTablero, BorderLayout.CENTER);
 		
 		aleatorio.setEnabled(true);
