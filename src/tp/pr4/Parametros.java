@@ -11,6 +11,7 @@ import org.apache.commons.cli.ParseException;
 import tp.pr4.control.FactoriaComplica;
 import tp.pr4.control.FactoriaConecta4;
 import tp.pr4.control.FactoriaGravity;
+import tp.pr4.control.FactoriaReversi;
 import tp.pr4.control.FactoriaTipoJuego;
 
 public class Parametros {
@@ -41,13 +42,13 @@ public class Parametros {
 
 	//Crea un ojeto Parametros que sirve para interpretar os comandos de inicializacion.
 	//Se usa en Main();
-	@SuppressWarnings("static-access")
+	@SuppressWarnings({ "static-access", "deprecation" })
 	public Parametros() {
 		
 		parser = new BasicParser();
 		opciones = new Options();
 
-		opciones.addOption(OptionBuilder.hasArg().withArgName("game").withDescription("Tipo de juego (c4, co, gr). Por defecto, c4.").withLongOpt("game").create("g"));
+		opciones.addOption(OptionBuilder.hasArg().withArgName("game").withDescription("Tipo de juego (c4, co, gr, rv). Por defecto, c4.").withLongOpt("game").create("g"));
 		opciones.addOption("h","help",false, "Muestra esta ayuda.");
 		opciones.addOption(OptionBuilder.hasArg().withArgName("tipo").withDescription("Tipo de interfaz (console, window). Por defecto, console.").withLongOpt("ui").create("u"));
 		opciones.addOption(OptionBuilder.hasArg().withArgName("columnNumber").withDescription("Número de columnas del tablero (sólo para Gravity). Por defecto, 10.").withLongOpt("tamX").create("x"));
@@ -110,6 +111,9 @@ public class Parametros {
 					}
 					
 					factoria = new FactoriaGravity(X, Y);
+				} else if (game.equals("rv")) {
+					
+					factoria = new FactoriaReversi();
 				} else if (game != null){
 					
 					throw new ParseException("Juego '" + game + "' incorrecto.");

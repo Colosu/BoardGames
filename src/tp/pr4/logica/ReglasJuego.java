@@ -19,4 +19,7 @@ public interface ReglasJuego {
 	
 	//Devuelve el jugador que juega a continuación.
 	public Ficha siguienteTurno(Ficha ultimoEnPoner, Tablero tablero);
+	
+	//Devuelve el juego al que se está jugando.
+	public TipoJuego getJuego();
 }

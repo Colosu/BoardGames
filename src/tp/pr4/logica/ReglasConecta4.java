@@ -60,6 +60,11 @@ public class ReglasConecta4 implements ReglasJuego {
 		}
 	}
 
+	public TipoJuego getJuego() {
+		
+		return TipoJuego.Conecta4;
+	}
+
 	private int hayGanador(Tablero tablero, int col, int fil, int sumCol, int sumFil) {
 
 		int i, j;

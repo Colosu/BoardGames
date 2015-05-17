@@ -6,6 +6,11 @@ import tp.pr4.logica.TableroInmutable;
 
 public class VistaConsola implements Observer {
 
+	public VistaConsola() {
+		
+		iniciado = false;
+	}
+	
 	//Ofrece una expresión gráfica del tablero.
 	public void muestraTablero(TableroInmutable tablero) {
 		
@@ -66,14 +71,6 @@ public class VistaConsola implements Observer {
 	@Override
 	public void onReset(TableroInmutable estadoInicial, Ficha turno) {
 
-		System.out.println("Partida reiniciada.");
-		initState(estadoInicial, turno);
-	}
-
-	//Se llama al iniciar la aplicación o al reiniciar la partida o al cambiar de juego para mostrar el nuevo tablero.
-	@Override
-	public void initState(TableroInmutable estadoInicial, Ficha turno) {
-
 		muestraTablero(estadoInicial);
 		
 		switch (turno) {
@@ -81,6 +78,14 @@ public class VistaConsola implements Observer {
 		case BLANCA: System.out.println("Juegan blancas"); break;
 		case NEGRA: System.out.println("Juegan negras"); break;
 		default: break;
+		}
+		
+		if (iniciado) {
+
+			System.out.println("Partida reiniciada.");
+		} else {
+
+			iniciado = true;
 		}
 	}
 
@@ -118,4 +123,6 @@ public class VistaConsola implements Observer {
 		default: System.out.println("Partida terminada en tablas."); break;
 		}
 	}
+	
+	private boolean iniciado;
 }

@@ -10,7 +10,6 @@ public class Partida extends Observable<Partida.Observer> {
 		public void onMovimientoIncorrecto(java.lang.String explicacion, TableroInmutable estadoTablero, Ficha turno);
 		public void onMovimientoStart(Ficha turno);
 		public void onReset(TableroInmutable estadoInicial, Ficha turno);
-		public void initState(TableroInmutable estadoInicial, Ficha turno);
 		public void onUndo(TableroInmutable estadoTablero, Ficha turno, boolean hayMas);
 		public void onUndoNotPossible();
 		public void partidaTerminada(TableroInmutable tableroFinal, Ficha ganador);
@@ -53,15 +52,6 @@ public class Partida extends Observable<Partida.Observer> {
 		for (Partida.Observer o : observers) {
 
 			o.onReset(tablero, turno);	
-		}
-	}
-	
-	//Avisa a los observers que se ha iniciado una partida.
-	public void start() {
-
-		for (Partida.Observer o : observers) {
-
-			o.initState(tablero, turno);	
 		}
 	}
 	

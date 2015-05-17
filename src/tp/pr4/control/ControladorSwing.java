@@ -7,6 +7,8 @@ import tp.pr4.logica.ReglasComplica;
 import tp.pr4.logica.ReglasConecta4;
 import tp.pr4.logica.ReglasGravity;
 import tp.pr4.logica.ReglasJuego;
+import tp.pr4.logica.ReglasReversi;
+import tp.pr4.logica.TipoJuego;
 
 public class ControladorSwing {
 
@@ -15,6 +17,7 @@ public class ControladorSwing {
 
 		factoria = f;
 		partida = p;
+		juego = partida.getReglas().getJuego();
 	}
 	
 	//Crea un movimiento a partir de los datos recibidos de la vista.
@@ -56,23 +59,32 @@ public class ControladorSwing {
 	}
 	
 	//Cambia de juego en función del String pasado.
-	public void ordenCambiar(String juego, int cols, int fils) throws NumberFormatException {
+	public void ordenCambiar(String SJuego, int cols, int fils) throws NumberFormatException {
 
 		ReglasJuego reglas;
-		switch(juego) {
+		switch(SJuego) {
 		case "conecta4":
 			reglas = new ReglasConecta4();
 			factoria = new FactoriaConecta4();
+			juego = reglas.getJuego();
 			partida.reset(reglas);
 			break;
 		case "complica":
 			reglas = new ReglasComplica();
 			factoria = new FactoriaComplica();
+			juego = reglas.getJuego();
 			partida.reset(reglas);
 			break;
 		case "gravity":
 			reglas = new ReglasGravity(cols, fils);
 			factoria = new FactoriaGravity(cols, fils);
+			juego = reglas.getJuego();
+			partida.reset(reglas);
+			break;
+		case "reversi":
+			reglas = new ReglasReversi();
+			factoria = new FactoriaReversi();
+			juego = reglas.getJuego();
 			partida.reset(reglas);
 			break;
 		default: break;
@@ -85,6 +97,12 @@ public class ControladorSwing {
 		System.exit(0);
 	}
 	
+	public TipoJuego getJuego() {
+		
+		return juego;
+	}
+	
 	private FactoriaTipoJuego factoria;
 	private Partida partida;
+	private TipoJuego juego;
 }

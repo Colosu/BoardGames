@@ -4,6 +4,13 @@ import java.util.Scanner;
 import tp.pr4.control.*;
 import tp.pr4.logica.*;
 import tp.pr4.vista.consola.VistaConsola;
+import tp.pr4.vista.swing.PDerecha;
+import tp.pr4.vista.swing.PDimensiones;
+import tp.pr4.vista.swing.PIzquierda;
+import tp.pr4.vista.swing.PJuego;
+import tp.pr4.vista.swing.POpciones;
+import tp.pr4.vista.swing.PPartida;
+import tp.pr4.vista.swing.PTablero;
 import tp.pr4.vista.swing.VistaSwing;
 
 
@@ -32,13 +39,27 @@ public class Main {
 				ControladorSwing controlador = new ControladorSwing(modo.getFactoria(), partida);
 
 				//Crea la vista
-				VistaSwing vista = new VistaSwing(controlador);
+				PDimensiones pDimensiones = new PDimensiones(controlador);
+				PJuego pJuego = new PJuego(controlador, pDimensiones);
+				POpciones pOpciones = new POpciones(controlador);
+				PDerecha pDerecha = new PDerecha(controlador, pJuego, pOpciones);
+				PTablero pTablero = new PTablero(controlador);
+				PPartida pPartida = new PPartida(pTablero);
+				PIzquierda pIzquierda = new PIzquierda(controlador, pPartida);
+				VistaSwing vista = new VistaSwing(pIzquierda, pDerecha);
 				
 				//Añade la vista como observadora de la partida
+				partida.addObserver(pDimensiones);
+				partida.addObserver(pJuego);
+				partida.addObserver(pOpciones);
+				partida.addObserver(pDerecha);
+				partida.addObserver(pTablero);
+				partida.addObserver(pPartida);
+				partida.addObserver(pIzquierda);
 				partida.addObserver(vista);
 
 				//Muestra por primera vez el tablero.
-				partida.start();
+				partida.reset(reglas);
 			//Para la consola
 			} else {
 				
@@ -61,7 +82,7 @@ public class Main {
 				partida.addObserver(vista);
 				
 				//Muestra por primera vez el tablero.
-				partida.start();
+				partida.reset(reglas);
 				
 				//Inicia el juego.
 				controlador.run();

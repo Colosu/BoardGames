@@ -5,57 +5,44 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JComponent;
 
 import tp.pr4.control.*;
 import tp.pr4.logica.*;
 
 //Clase auxiliar para implementar la vista Swing facilitando el trabajo con las celdas del tablero.
-public class Celda {
+public class Celda extends JButton{
 
 	//Crea un objeto de tipo Celda.
-	public Celda(ControladorSwing controlador, int posX, int posY) {
+	public Celda(final ControladorSwing controlador, int posX, int posY) {
 		
-
-		celda = new JButton();
-		celda.setBackground(Color.green);
+		setBackground(Color.green);
 		color = Ficha.VACIA;
 		columna = posX;
 		fila = posY;
-		addAction(controlador);
-	}
-	
-	//Añade una acción al boton de la celda.
-	public void addAction(ControladorSwing controlador) {
-		
-		celda.addActionListener(new ActionListener() {
+
+		addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent event) {
 				
 				controlador.ordenPoner(columna, fila);
-			}});
-	}
-	
-	//Añade la celda correspondiente al componente pasado por parámetro.
-	public void addCelda(JComponent componente) {
-		
-		componente.add(celda);
-	}
-	
-	//Añade la celda correspondiente al componente pasado por parámetro en la posición indicada.
-	public void addCelda(JComponent componente, String pos) {
-		
-		componente.add(celda, pos);
+				}
+			}
+		);
 	}
 	
 	//Cambia el color de la celda.
 	public void setColor(Ficha colr) {
 
 		switch (colr) {
-		case BLANCA: color = Ficha.BLANCA; celda.setBackground(Color.white); break;
-		case NEGRA: color = Ficha.NEGRA; celda.setBackground(Color.black); break;
-		default: color = Ficha.VACIA; celda.setBackground(Color.green); break;
+		case BLANCA: color = Ficha.BLANCA; setBackground(Color.white); break;
+		case NEGRA: color = Ficha.NEGRA; setBackground(Color.black); break;
+		default: color = Ficha.VACIA; setBackground(Color.green); break;
 		}
+	}
+	
+	public void setPosible() {
+		
+		setBackground(Color.red);
 	}
 	
 	//Devuelve la columna de la celda.
@@ -78,6 +65,6 @@ public class Celda {
 	
 	private int columna;
 	private int fila;
-	private JButton celda;
 	private Ficha color;
+	private static final long serialVersionUID = 4026449246830280495L;
 }

@@ -73,6 +73,11 @@ public class ReglasGravity implements ReglasJuego {
 		}
 	}
 
+	public TipoJuego getJuego() {
+		
+		return TipoJuego.Gravity;
+	}
+
 	private int hayGanador(Tablero tablero, int col, int fil, int sumCol, int sumFil) {
 
 		int i, j;

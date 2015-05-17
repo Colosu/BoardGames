@@ -111,6 +111,11 @@ public class ReglasComplica implements ReglasJuego {
 		}
 	}
 
+	public TipoJuego getJuego() {
+		
+		return TipoJuego.Complica;
+	}
+
 	private int hayGanador(Tablero tablero, int col, int fil, int sumCol, int sumFil) {
 
 		int i, j;
