@@ -1,6 +1,5 @@
 package tp.pr4.logica;
 
-import tp.pr4.control.UtilsOthelo;
 
 public class ReglasReversi implements ReglasJuego {
 
@@ -23,71 +22,59 @@ public class ReglasReversi implements ReglasJuego {
 
 	public Ficha hayGanador(Movimiento ultimoMovimiento, Tablero tablero) {
 
-		int blancas = 0;
-		int negras = 0;
-		
-		int i = 1;
-		boolean vacia = false;
-		while (!vacia && i <= tablero.getAncho()) {
-			int j = 1;
-			while (!vacia && j <= tablero.getAlto()) {
-				
-				if(tablero.getCasilla(i, j).equals(Ficha.BLANCA)) {
-					
-					blancas++;
-				} else if (tablero.getCasilla(i, j).equals(Ficha.NEGRA)) {
-					
-					negras++;
-				} else {
-					
-					vacia = true;
+		if (partidaFinalizada(tablero)) {
+			int blancas = 0;
+			int negras = 0;
+			
+			for (int i = 1; i <= tablero.getAncho(); i++) {
+
+				for (int j = 1; j <= tablero.getAlto(); j++) {
+
+					if (tablero.getCasilla(i, j).equals(Ficha.BLANCA)) {
+
+						blancas++;
+					} else if (tablero.getCasilla(i, j).equals(Ficha.NEGRA)) {
+
+						negras++;
+					}
 				}
-				j++;
 			}
-			i++;
-		}
-		
-		if (vacia || negras == blancas) {
 			
-			return Ficha.VACIA;
-		} else if (negras > blancas) {
-			
-			return Ficha.NEGRA;
+			if (negras == blancas) {
+
+				return Ficha.VACIA;
+			} else if (negras > blancas) {
+
+				return Ficha.NEGRA;
+			} else {
+
+				return Ficha.BLANCA;
+			}
 		} else {
 			
-			return Ficha.BLANCA;
+			return Ficha.VACIA;
 		}
 	}
 
 	public boolean tablas(Ficha ultimoEnPoner, Tablero tablero) {
 
-		int blancas = 0;
-		int negras = 0;
-		
-		int i = 1;
-		boolean vacia = false;
-		while (!vacia && i <= tablero.getAncho()) {
-			int j = 1;
-			while (!vacia && j <= tablero.getAlto()) {
-				
-				if(tablero.getCasilla(i, j).equals(Ficha.BLANCA)) {
-					
-					blancas++;
-				} else if (tablero.getCasilla(i, j).equals(Ficha.NEGRA)) {
-					
-					negras++;
-				} else {
-					
-					vacia = true;
+		if (partidaFinalizada(tablero)) {
+			int blancas = 0;
+			int negras = 0;
+
+			for (int i = 1; i <= tablero.getAncho(); i++) {
+				for (int j = 1; j <= tablero.getAlto(); j++) {
+
+					if (tablero.getCasilla(i, j).equals(Ficha.BLANCA)) {
+
+						blancas++;
+					} else if (tablero.getCasilla(i, j).equals(Ficha.NEGRA)) {
+
+						negras++;
+					}
 				}
-				j++;
 			}
-			i++;
-		}
-		
-		if (!vacia && negras == blancas) {
-			
-			return true;
+			return (negras == blancas);
 		} else {
 			
 			return false;
@@ -109,7 +96,7 @@ public class ReglasReversi implements ReglasJuego {
 			int j = 1;
 			while (!puedePoner && j <= tablero.getAlto()) {
 				
-				puedePoner = UtilsOthelo.puedePoner(tablero, i, j, ultimoEnPoner);
+				puedePoner = UtilsOthello.puedePoner(tablero, i, j, ultimoEnPoner);
 				
 				j++;
 			}
@@ -128,8 +115,23 @@ public class ReglasReversi implements ReglasJuego {
 		return ultimoEnPoner;
 	}
 
-	public TipoJuego getJuego() {
+	//Método auxiliar para averiguar si la partida ha acabado,
+	private boolean partidaFinalizada(Tablero tablero) {
 		
-		return TipoJuego.Reversi;
+		int i = 1;
+		boolean puedePoner = false;
+		while (!puedePoner && i <= tablero.getAncho()) {
+			int j = 1;
+			while (!puedePoner && j <= tablero.getAlto()) {
+				
+				puedePoner = puedePoner || UtilsOthello.puedePoner(tablero, i, j, Ficha.BLANCA);
+				puedePoner = puedePoner || UtilsOthello.puedePoner(tablero, i, j, Ficha.NEGRA);
+				
+				j++;
+			}
+			i++;
+		}
+		
+		return !puedePoner;
 	}
 }

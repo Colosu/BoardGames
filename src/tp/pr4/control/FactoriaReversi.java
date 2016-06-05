@@ -14,10 +14,20 @@ public class FactoriaReversi implements FactoriaTipoJuego {
 
 		return new JugadorHumano(in, this, true);
 	}
+	
+	public JugadorSwing creaJugadorHumanoSwing(ControladorSwing controlador) {
+	
+		return new JugadorHumanoSwing(controlador);
+	}
 
 	public Jugador creaJugadorAleatorio() {
 
 		return new JugadorAleatorioReversi(this);
+	}
+
+	public JugadorSwing creaJugadorAutomatico() {
+		
+		return new JugadorAutomaticoSwing();
 	}
 
 	public Movimiento creaMovimiento(int col, int fila, Ficha color) {

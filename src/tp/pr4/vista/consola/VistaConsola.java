@@ -38,9 +38,13 @@ public class VistaConsola implements Observer {
 		System.out.println();
 		
 	}
+
+	public void turnoIniciado(TableroInmutable estadoTablero, Ficha turno) {
+		
+		
+	}
 	
 	//Se ejecuta al finalizar un movimiento para mostrar el tablero actualizado.
-	@Override
 	public void onMovimientoEnd(TableroInmutable estadoTablero, Ficha turno, Ficha siguiente) {
 		
 		muestraTablero(estadoTablero);
@@ -53,22 +57,17 @@ public class VistaConsola implements Observer {
 		}
 	}
 
-	//Se ejecuta al realizar un movimiento no valido, para mostrar la causa del error.
-	@Override
+	//Se ejecuta al realizar un movimiento no valido para mostrar la causa del error.
 	public void onMovimientoIncorrecto(String explicacion, TableroInmutable estadoTablero, Ficha turno) {
 		
 		System.err.println(explicacion);
 	}
 
-	//Se llama al iniciar el movimiento.
-	@Override
 	public void onMovimientoStart(Ficha turno) {
 
 	}
 
-	//Se llama al reiniciarse la partida o al cambiar de juego y avisa de que la partida ha sido reiniciada.
-	//Además, llama a onSet() para mostrar el nuevo tablero.
-	@Override
+	//Se ejecuta al reiniciar la partida para mostrar el tablero y avisar de que la partida ha sido reiniciada.
 	public void onReset(TableroInmutable estadoInicial, Ficha turno) {
 
 		muestraTablero(estadoInicial);
@@ -89,8 +88,7 @@ public class VistaConsola implements Observer {
 		}
 	}
 
-	//Se llama al deshacer un movimiento para mostrar el nuevo tablero.
-	@Override
+	//Se ejecuta al deshacer un movimiento para mostrar el nuevo tablero.
 	public void onUndo(TableroInmutable estadoTablero, Ficha turno, boolean hayMas) {
 		
 		muestraTablero(estadoTablero);
@@ -103,15 +101,13 @@ public class VistaConsola implements Observer {
 		}
 	}
 
-	//Se llama cuando no se pueden deshacer más movimientos y avisa de que no se pueden deshacer movimientos.
-	@Override
+	//Se ejecuta cuando no se pueden deshacer más movimientos y avisa de que no se pueden deshacer movimientos.
 	public void onUndoNotPossible() {
 
 		System.err.println("Imposible deshacer.");
 	}
 
-	//Se llama cuando acaba la partida, muestra el tablero final y quien ha ganado.
-	@Override
+	//Se ejecuta al finalizar la partida para mostrar el tablero final y quien ha ganado.
 	public void partidaTerminada(TableroInmutable tableroFinal, Ficha ganador) {
 		
 		muestraTablero(tableroFinal);

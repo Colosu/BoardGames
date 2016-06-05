@@ -10,10 +10,20 @@ public class FactoriaComplica implements FactoriaTipoJuego {
 
 		return new JugadorHumano(in, this, false);
 	}
+	
+	public JugadorSwing creaJugadorHumanoSwing(ControladorSwing controlador) {
+	
+		return new JugadorHumanoSwing(controlador);
+	}
 
 	public Jugador creaJugadorAleatorio() {
 
 		return new JugadorAleatorioComplica(this);
+	}
+
+	public JugadorSwing creaJugadorAutomatico() {
+		
+		return new JugadorAutomaticoSwing();
 	}
 
 	public Movimiento creaMovimiento(int col, int fila, Ficha color) {

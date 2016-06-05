@@ -24,8 +24,8 @@ public class PDimensiones extends JPanel implements Observer {
 		JPanel pDimensiones = new JPanel(new FlowLayout());
 
 		//Cajas de texto para elegir las filas y columnas de la partida de gravity
-		JLabel fils = new JLabel("Filas");
-		JLabel cols = new JLabel("Columnas");
+		final JLabel fils = new JLabel("Filas");
+		final JLabel cols = new JLabel("Columnas");
 		filas = new JTextField(5);
 		columnas = new JTextField(5);
 		fils.setVisible(false);
@@ -44,7 +44,7 @@ public class PDimensiones extends JPanel implements Observer {
 			
 			public void actionPerformed(ActionEvent event) {
 				
-				if (juegos.getSelectedItem().toString().equals("gravity")) {
+				if (getJuego().equals("gravity")) {
 
 					fils.setVisible(true);
 					filas.setVisible(true);
@@ -68,20 +68,10 @@ public class PDimensiones extends JPanel implements Observer {
 		add(juegos, BorderLayout.NORTH);
 		add(pDimensiones, BorderLayout.SOUTH);
 	}
-	
-	public String getJuego() {
+
+	public void turnoIniciado(TableroInmutable estadoTablero, Ficha turno) {
 		
-		return juegos.getSelectedItem().toString();
-	}
-	
-	public int getColumnas() {
 		
-		return Integer.parseInt(columnas.getText());
-	}
-	
-	public int getFilas() {
-		
-		return Integer.parseInt(filas.getText());
 	}
 
 	public void onMovimientoEnd(TableroInmutable estadoTablero, Ficha turno, Ficha siguiente) {
@@ -96,6 +86,7 @@ public class PDimensiones extends JPanel implements Observer {
 
 	}
 
+	//Se ejecuta al reiniciar la partida para actualizar el cuadro de Cambio de Juego.
 	public void onReset(TableroInmutable estadoInicial, Ficha turno) {
 
 		juegos.setEnabled(true);
@@ -111,11 +102,30 @@ public class PDimensiones extends JPanel implements Observer {
 
 	}
 
+	//Se ejecuta al finalizar la partida para actualizar el cuadro de Cambio de Juego.
 	public void partidaTerminada(TableroInmutable tableroFinal, Ficha ganador) {
 
 		juegos.setEnabled(false);
 		columnas.setEnabled(false);
 		filas.setEnabled(false);
+	}
+	
+	//Devuelve el juego seleccionado en el desplegable.
+	public String getJuego() {
+		
+		return juegos.getSelectedItem().toString();
+	}
+	
+	//Devuelve el valor introducido en el campo de columnas.
+	public int getColumnas() {
+		
+		return Integer.parseInt(columnas.getText());
+	}
+
+	//Devuelve el valor introducido en el campo de filas.
+	public int getFilas() {
+		
+		return Integer.parseInt(filas.getText());
 	}
 
 	private JComboBox<String> juegos;

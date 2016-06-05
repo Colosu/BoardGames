@@ -44,5 +44,5 @@ public class OrdenJugarC4 implements Orden {
 
 	private java.util.Scanner in;
 	private Controlador controlador;
-	private static String ayuda = "JUGAR [c4|co|gr] [tamX tamY]: cambia el tipo de juego.";
+	private static String ayuda = "JUGAR [c4|co|gr|rv] [tamX tamY]: cambia el tipo de juego.";
 }

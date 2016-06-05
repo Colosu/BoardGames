@@ -14,6 +14,7 @@ import tp.pr4.control.FactoriaGravity;
 import tp.pr4.control.FactoriaReversi;
 import tp.pr4.control.FactoriaTipoJuego;
 
+@SuppressWarnings("deprecation")
 public class Parametros {
 	
 	//Clase interna que sirve para devolver los resultados del parser.
@@ -42,7 +43,7 @@ public class Parametros {
 
 	//Crea un ojeto Parametros que sirve para interpretar os comandos de inicializacion.
 	//Se usa en Main();
-	@SuppressWarnings({ "static-access", "deprecation" })
+	@SuppressWarnings("static-access")
 	public Parametros() {
 		
 		parser = new BasicParser();

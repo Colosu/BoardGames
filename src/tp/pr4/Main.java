@@ -8,11 +8,11 @@ import tp.pr4.vista.swing.PDerecha;
 import tp.pr4.vista.swing.PDimensiones;
 import tp.pr4.vista.swing.PIzquierda;
 import tp.pr4.vista.swing.PJuego;
+import tp.pr4.vista.swing.PJugadores;
 import tp.pr4.vista.swing.POpciones;
 import tp.pr4.vista.swing.PPartida;
 import tp.pr4.vista.swing.PTablero;
 import tp.pr4.vista.swing.VistaSwing;
-
 
 public class Main {
 
@@ -41,8 +41,9 @@ public class Main {
 				//Crea la vista
 				PDimensiones pDimensiones = new PDimensiones(controlador);
 				PJuego pJuego = new PJuego(controlador, pDimensiones);
+				PJugadores pJugadores = new PJugadores(controlador);
 				POpciones pOpciones = new POpciones(controlador);
-				PDerecha pDerecha = new PDerecha(controlador, pJuego, pOpciones);
+				PDerecha pDerecha = new PDerecha(controlador, pJuego, pJugadores, pOpciones);
 				PTablero pTablero = new PTablero(controlador);
 				PPartida pPartida = new PPartida(pTablero);
 				PIzquierda pIzquierda = new PIzquierda(controlador, pPartida);
@@ -51,6 +52,7 @@ public class Main {
 				//Añade la vista como observadora de la partida
 				partida.addObserver(pDimensiones);
 				partida.addObserver(pJuego);
+				partida.addObserver(pJugadores);
 				partida.addObserver(pOpciones);
 				partida.addObserver(pDerecha);
 				partida.addObserver(pTablero);
@@ -59,7 +61,7 @@ public class Main {
 				partida.addObserver(vista);
 
 				//Muestra por primera vez el tablero.
-				partida.reset(reglas);
+				controlador.ordenCambiar(pDimensiones.getJuego(), partida.getTablero().getAncho(), partida.getTablero().getAlto());
 			//Para la consola
 			} else {
 				

@@ -1,6 +1,5 @@
 package tp.pr4.logica;
 
-import tp.pr4.control.UtilsOthelo;
 
 public class MovimientoReversi extends Movimiento {
 
@@ -18,9 +17,9 @@ public class MovimientoReversi extends Movimiento {
 			throw new MovimientoInvalido("Casilla ocupada.");
 		} else if (columna > 0 && columna <= tablero.getAncho() && fila > 0 && fila <= tablero.getAlto()) {
 			
-			if (UtilsOthelo.puedePoner(tablero, columna, fila, jugador)) {
+			if (UtilsOthello.puedePoner(tablero, columna, fila, jugador)) {
 				
-				cambiadas = UtilsOthelo.poner(tablero, columna, fila, jugador);
+				cambiadas = UtilsOthello.poner(tablero, columna, fila, jugador);
 			} else {
 				
 				throw new MovimientoInvalido("Jugada no válida.");
@@ -33,7 +32,7 @@ public class MovimientoReversi extends Movimiento {
 
 	public void undo(Tablero tablero) {
 
-		UtilsOthelo.deshacer(tablero, columna, fila, jugador, cambiadas);
+		UtilsOthello.deshacer(tablero, columna, fila, jugador, cambiadas);
 	}
 
 	public int getColumna() {

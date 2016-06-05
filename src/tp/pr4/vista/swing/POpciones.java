@@ -32,7 +32,7 @@ public class POpciones extends JPanel implements Observer {
 				controlador.ordenDeshacer();
 			}
 		});
-		deshacer.setIcon(new ImageIcon("res/iconos/undo.png"));
+		deshacer.setIcon(new ImageIcon("src/tp/pr4/vista/swing/iconos/undo.png"));
 		this.add(deshacer);
 
 		//Boton para reiniciar
@@ -44,10 +44,16 @@ public class POpciones extends JPanel implements Observer {
 				controlador.ordenReiniciar();
 			}
 		});
-		reiniciar.setIcon(new ImageIcon("res/iconos/reiniciar.png"));
+		reiniciar.setIcon(new ImageIcon("src/tp/pr4/vista/swing/iconos/reiniciar.png"));
 		this.add(reiniciar);
 	}
 
+	public void turnoIniciado(TableroInmutable estadoTablero, Ficha turno) {
+		
+		
+	}
+
+	//Se ejecuta al finalizar un movimiento para activar el botón de deshacer.
 	public void onMovimientoEnd(TableroInmutable estadoTablero, Ficha turno, Ficha siguiente) {
 
 		deshacer.setEnabled(true);
@@ -61,11 +67,15 @@ public class POpciones extends JPanel implements Observer {
 
 	}
 
+	//Se ejecuta al reiniciar la partida para desactivar el botón de deshacer.
 	public void onReset(TableroInmutable estadoInicial, Ficha turno) {
 
 		deshacer.setEnabled(false);
 	}
 
+	/*Se ejecuta al deshacer un movimiento para activar o desactivar el botón de deshacer
+	según queden o no movimientos a deshacer.
+	*/
 	public void onUndo(TableroInmutable estadoTablero, Ficha turno, boolean hayMas) {
 
 		
@@ -82,6 +92,7 @@ public class POpciones extends JPanel implements Observer {
 
 	}
 
+	//Se ejecuta al finalizar la partida para desactivar el botón de deshacer.
 	public void partidaTerminada(TableroInmutable tableroFinal, Ficha ganador) {
 
 		deshacer.setEnabled(false);

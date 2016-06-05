@@ -6,6 +6,7 @@ public class Partida extends Observable<Partida.Observer> {
 	//Interfaz observer para manejar los observadores de la partida.
 	public static interface Observer {
 
+		public void turnoIniciado(TableroInmutable estadoTablero, Ficha turno);
 		public void onMovimientoEnd(TableroInmutable estadoTablero, Ficha turno, Ficha siguiente);
 		public void onMovimientoIncorrecto(java.lang.String explicacion, TableroInmutable estadoTablero, Ficha turno);
 		public void onMovimientoStart(Ficha turno);
@@ -21,7 +22,7 @@ public class Partida extends Observable<Partida.Observer> {
 		reglas = regla;
 		tablero = reglas.iniciaTablero();
 		terminada = false;
-		completo = false;
+		tablas = false;
 		ganador = Ficha.VACIA;
 		turno = reglas.jugadorInicial();
 		ultimoMovimiento = new Movimiento [10];
@@ -33,13 +34,13 @@ public class Partida extends Observable<Partida.Observer> {
 		contadorUndo = 0;
 	}
 	
-	//Reinica la partida con las reglas escogidas y avisa del reinicio a los observers.
+	//Reinicia la partida con las reglas escogidas y avisa del reinicio a los observers.
 	public void reset(ReglasJuego regla) {
 
 		reglas = regla;
 		tablero = reglas.iniciaTablero();
 		terminada = false;
-		completo = false;
+		tablas = false;
 		ganador = Ficha.VACIA;
 		turno = reglas.jugadorInicial();
 		
@@ -51,8 +52,10 @@ public class Partida extends Observable<Partida.Observer> {
 		
 		for (Partida.Observer o : observers) {
 
-			o.onReset(tablero, turno);	
+			o.onReset(tablero, turno);
 		}
+		
+		turnoIniciado();
 	}
 	
 	/*Este método permite cambiar una ficha VACIA por una BLANCA o NEGRA 
@@ -121,9 +124,9 @@ public class Partida extends Observable<Partida.Observer> {
 			terminada = true;
 		}
 		
-		completo = reglas.tablas(movimiento.getJugador(), tablero);
+		tablas = reglas.tablas(movimiento.getJugador(), tablero);
 
-		if (!terminada && completo) {
+		if (!terminada && tablas) {
 			
 			terminada = true;
 		}
@@ -135,6 +138,8 @@ public class Partida extends Observable<Partida.Observer> {
 
 				o.onMovimientoEnd(tablero, reglas.siguienteTurno(movimiento.getJugador(), tablero), turno);
 			}
+			
+			turnoIniciado();
 		}
 	}
 	
@@ -162,6 +167,8 @@ public class Partida extends Observable<Partida.Observer> {
 
 				o.onUndo(tablero, turno, contadorUndo > 0);
 			}
+			
+			turnoIniciado();
 			
 			return true;	
 		} else {
@@ -213,9 +220,18 @@ public class Partida extends Observable<Partida.Observer> {
 		return reglas;
 	}
 	
+	//Avisa a los observers de que se ha iniciado un nuevo turno.
+	public void turnoIniciado() {
+		
+		for (Partida.Observer o : observers) {
+
+			o.turnoIniciado(tablero, turno);
+		}
+	}
+	
 	private Tablero tablero;
 	private boolean terminada;
-	private boolean completo;
+	private boolean tablas;
 	private Ficha ganador;
 	private Ficha turno;
 	private Movimiento ultimoMovimiento [];

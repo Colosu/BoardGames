@@ -25,16 +25,15 @@ public class Controlador {
 		orden[3] = new OrdenJugarC4(in, this);
 		orden[4] = new OrdenJugarCo(in, this);
 		orden[5] = new OrdenJugarGr(in, this, columnas, filas);
-		orden[6] = new OrdenCambiarJugador(in, Ficha.BLANCA, "humano", this);
-		orden[7] = new OrdenSalir(this);
-		orden[8] = new OrdenAyuda(orden, numOrden);
+		orden[6] = new OrdenJugarRv(in, this);
+		orden[7] = new OrdenCambiarJugador(in, Ficha.BLANCA, "humano", this);
+		orden[8] = new OrdenSalir(this);
+		orden[9] = new OrdenAyuda(orden, numOrden);
 	}
 	
 	/*Controlador.run() ejecuta las funciones de control de la partida:
-	 *Pregunta al usuario por las acciones.
-	 *Comprueba si son válidas.
-	 *Ofrece el menú de ayuda.
-	 *Permite terminar la partida sin ganador con la opcion Salir
+	 *Pregunta al usuario por las órdenes.
+	 *Comprueba si son válidas y en caso afirmativo llama a las mismas.
 	 *Comprueba si la partida ha terminado con o sin ganador.
 	 */
 	public void run() {
@@ -96,6 +95,7 @@ public class Controlador {
 		case 0: factoria = new FactoriaConecta4(); break;
 		case 1: factoria = new FactoriaComplica(); break;
 		case 2: factoria = new FactoriaGravity(cols, fils); break;
+		case 3: factoria = new FactoriaReversi(); break;
 		default: factoria = new FactoriaConecta4(); break;
 		}
 	}
@@ -110,7 +110,7 @@ public class Controlador {
 	private FactoriaTipoJuego factoria;
 	private Partida partida;
 	private Orden [] orden;
-	private final int numOrden = 9;
+	private final int numOrden = 10;
 	private int columnas;
 	private int filas;
 	private boolean salir;

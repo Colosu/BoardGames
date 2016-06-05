@@ -60,11 +60,7 @@ public class ReglasConecta4 implements ReglasJuego {
 		}
 	}
 
-	public TipoJuego getJuego() {
-		
-		return TipoJuego.Conecta4;
-	}
-
+	//Método auxiliar para averiguar si hay ganador,
 	private int hayGanador(Tablero tablero, int col, int fil, int sumCol, int sumFil) {
 
 		int i, j;

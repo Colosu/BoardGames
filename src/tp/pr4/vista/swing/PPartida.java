@@ -24,6 +24,12 @@ public class PPartida extends JPanel implements Observer {
 		add(etiqueta, BorderLayout.SOUTH);
 	}
 
+	public void turnoIniciado(TableroInmutable estadoTablero, Ficha turno) {
+		
+		
+	}
+
+	//Se ejecuta al finalizar un movimiento para mostrar a quien le toca.
 	public void onMovimientoEnd(TableroInmutable estadoTablero, Ficha turno, Ficha siguiente) {
 
 		switch (siguiente) {
@@ -42,6 +48,7 @@ public class PPartida extends JPanel implements Observer {
 
 	}
 
+	//Se ejecuta al reiniciar la partida para mostrar a quien le toca.
 	public void onReset(TableroInmutable estadoInicial, Ficha turno) {
 
 		switch (turno) {
@@ -52,6 +59,7 @@ public class PPartida extends JPanel implements Observer {
 		}
 	}
 
+	//Se ejecuta al deshacer un movimiento para mostrar a quien le toca.
 	public void onUndo(TableroInmutable estadoTablero, Ficha turno, boolean hayMas) {
 
 		switch (turno) {
@@ -66,6 +74,7 @@ public class PPartida extends JPanel implements Observer {
 
 	}
 
+	//Se ejecuta al finalizar la partida para mostrar quien ha ganado.
 	public void partidaTerminada(TableroInmutable tableroFinal, Ficha ganador) {
 
 		switch (ganador) {

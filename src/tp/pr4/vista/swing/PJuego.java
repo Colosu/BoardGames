@@ -47,12 +47,17 @@ public class PJuego extends JPanel implements Observer {
 				}
 			}
 		});
-		cambiar.setIcon(new ImageIcon("res/iconos/aceptar.png"));
+		cambiar.setIcon(new ImageIcon("src/tp/pr4/vista/swing/iconos/aceptar.png"));
 		pCambiar.add(cambiar);
 		
 		pCambio.add(pDimensiones, BorderLayout.CENTER);
 		pCambio.add(pCambiar, BorderLayout.SOUTH);
 		add(pCambio, BorderLayout.NORTH);
+	}
+
+	public void turnoIniciado(TableroInmutable estadoTablero, Ficha turno) {
+		
+		
 	}
 
 	public void onMovimientoEnd(TableroInmutable estadoTablero, Ficha turno, Ficha siguiente) {
@@ -67,6 +72,7 @@ public class PJuego extends JPanel implements Observer {
 
 	}
 
+	//Se ejecuta al reiniciar la partida para activar el botón de cambiar.
 	public void onReset(TableroInmutable estadoInicial, Ficha turno) {
 
 		cambiar.setEnabled(true);
@@ -80,6 +86,7 @@ public class PJuego extends JPanel implements Observer {
 
 	}
 
+	//Se ejecuta al finalizar la partida para desactivar el botón de cambiar.
 	public void partidaTerminada(TableroInmutable tableroFinal, Ficha ganador) {
 
 		cambiar.setEnabled(false);

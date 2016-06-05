@@ -19,12 +19,12 @@ public class Celda extends JButton{
 		color = Ficha.VACIA;
 		columna = posX;
 		fila = posY;
-
+		
 		addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent event) {
 				
-				controlador.ordenPoner(columna, fila);
+				controlador.getJugador().tableroPulsado(columna, fila);
 				}
 			}
 		);
@@ -40,9 +40,22 @@ public class Celda extends JButton{
 		}
 	}
 	
+	//Cambia el color de la celda a rojo para señalar que es un movimiento posible.
 	public void setPosible() {
 		
 		setBackground(Color.red);
+	}
+	
+	//Devuelve si la celda ha sido señalada como movimiento posible o no.
+	public boolean isPosible() {
+		
+		if (getBackground().equals(Color.red)) {
+			
+			return true;
+		} else {
+			
+			return false;
+		}
 	}
 	
 	//Devuelve la columna de la celda.

@@ -8,10 +8,7 @@ public interface ReglasJuego {
 	//Devuelve el jugador inicial del juego en cuestion
 	public Ficha jugadorInicial();
 
-	/*Este método comprueba si hay 4 en raya.
-	 * Para ello cuenta cuantas fichas del mismo tipo de la última puesta hay en todas las direcciones válidas
-	 * antes de llegar a una ficha del otro tipo o vacía. 
-	 * Luego suma las cuentas de las direcciones opuestas y si hay 3 o más, con la última puesta, se hacen 4 en raya.*/
+	//Devuelve la ficha correspondiente al ganador de la partida o Ficha.VACIA en caso de no haber ganador.
 	public Ficha hayGanador(Movimiento ultimoMovimiento, Tablero tablero);
 
 	//Devuelve true si se han producido tablas, en cuyo caso, terminaremos la partida sin ganador.
@@ -19,7 +16,4 @@ public interface ReglasJuego {
 	
 	//Devuelve el jugador que juega a continuación.
 	public Ficha siguienteTurno(Ficha ultimoEnPoner, Tablero tablero);
-	
-	//Devuelve el juego al que se está jugando.
-	public TipoJuego getJuego();
 }

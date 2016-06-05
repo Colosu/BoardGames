@@ -17,10 +17,12 @@ import tp.pr4.logica.TableroInmutable;
 
 public class PDerecha extends JPanel implements Observer {
 	
-	public PDerecha(final ControladorSwing controlador, PJuego pJuego, POpciones pOpciones) {
+	public PDerecha(final ControladorSwing controlador, PJuego pJuego, PJugadores pJugadores, POpciones pOpciones) {
 
 		setLayout(new BorderLayout());
-		
+
+		JPanel pCentro = new JPanel(new BorderLayout());
+		JPanel pCambioJuego = new JPanel(new BorderLayout());
 		JPanel pSalir = new JPanel(new FlowLayout());
 
 		//Boton para salir
@@ -38,12 +40,21 @@ public class PDerecha extends JPanel implements Observer {
 				}
 			}
 		});
-		salir.setIcon(new ImageIcon("res/iconos/exit.png"));
+		salir.setIcon(new ImageIcon("src/tp/pr4/vista/swing/iconos/exit.png"));
 		pSalir.add(salir);
 
+		pCambioJuego.add(pJuego, BorderLayout.NORTH);
+		pCentro.add(pJugadores, BorderLayout.NORTH);
+		pCentro.add(pCambioJuego, BorderLayout.CENTER);
+		
 		add(pOpciones, BorderLayout.NORTH);
-		add(pJuego, BorderLayout.CENTER);
+		add(pCentro, BorderLayout.CENTER);
 		add(pSalir, BorderLayout.SOUTH);
+	}
+
+	public void turnoIniciado(TableroInmutable estadoTablero, Ficha turno) {
+		
+		
 	}
 
 	public void onMovimientoEnd(TableroInmutable estadoTablero, Ficha turno, Ficha siguiente) {

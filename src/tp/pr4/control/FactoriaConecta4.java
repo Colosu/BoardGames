@@ -10,10 +10,20 @@ public class FactoriaConecta4 implements FactoriaTipoJuego {
 		
 		return new JugadorHumano(in, this, false);
 	}
+	
+	public JugadorSwing creaJugadorHumanoSwing(ControladorSwing controlador) {
+	
+		return new JugadorHumanoSwing(controlador);
+	}
 
 	public Jugador creaJugadorAleatorio() {
 
 		return new JugadorAleatorioConecta4(this);
+	}
+
+	public JugadorSwing creaJugadorAutomatico() {
+		
+		return new JugadorAutomaticoSwing();
 	}
 
 	public Movimiento creaMovimiento(int col, int fila, Ficha color) {
